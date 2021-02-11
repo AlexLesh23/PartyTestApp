@@ -1,0 +1,40 @@
+{
+  "party": {
+    "title": "Именины",
+    "partyImageUrl": "https://potokmedia.ru/wp-content/uploads/2020/10/real_63873105-ba5a-4700-be7e-55044ee5a282-696x464.jpeg",
+    "inviter": "Кристина",
+    "inviterAvatarUrl":  "https://html5css.ru/howto/img_avatar2.png",
+    "guests": [
+      {
+        "name": "Олег",
+        "avatar": "https://html5css.ru/howto/img_avatar.png"
+      },
+      {
+        "name": "Дарья",
+        "avatar": "https://html5css.ru/howto/img_avatar2.png"
+      },
+      {
+        "name": "Виктор",
+        "avatar": null
+      },
+      {
+        "name": "Евгения",
+        "avatar": "https://html5css.ru/howto/img_avatar2.png"
+      }, {
+        "name": "Степан",
+        "avatar": null
+      },
+      {
+        "name": "Виктория",
+        "avatar": "https://html5css.ru/howto/img_avatar2.png"
+      }, {
+        "name": "Алексей",
+        "avatar": "https://html5css.ru/howto/img_avatar.png"
+      },
+      {
+        "name": "Екатерина",
+        "avatar": null
+      }
+    ]
+  }
+}
