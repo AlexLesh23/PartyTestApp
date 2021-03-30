@@ -1,6 +1,4 @@
-package com.bsc.msc.testapp.network.model.response
-
-import com.bsc.msc.testapp.network.model.response.Guest
+package com.bsc.msc.testapp.data.repository.network.response
 
 data class Party(
     val title: String,

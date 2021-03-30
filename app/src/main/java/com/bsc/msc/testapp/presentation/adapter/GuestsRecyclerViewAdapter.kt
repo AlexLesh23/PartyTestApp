@@ -1,4 +1,4 @@
-package com.bsc.msc.testapp.ui.adapter
+package com.bsc.msc.testapp.presentation.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bsc.msc.testapp.R
-import com.bsc.msc.testapp.model.*
+import com.bsc.msc.testapp.domain.model.*
 import com.bumptech.glide.Glide
 
 class GuestsRecyclerViewAdapter(
-    var models: List<ViewItem>,
+    var modelItems: List<ItemView>,
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -34,13 +34,13 @@ class GuestsRecyclerViewAdapter(
             else -> throw IllegalArgumentException("Unexpected view type: $viewType")
         }
 
-    override fun getItemCount(): Int = models.size
+    override fun getItemCount(): Int = modelItems.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is GuestViewHolder) {
-            holder.configure(models[position] as GuestViewItem, context)
+            holder.configure(modelItems[position] as GuestItemView, context)
         } else if (holder is HeaderViewHolder) {
-            holder.configure(models[position] as HeaderViewItem, context)
+            holder.configure(modelItems[position] as HeaderItemView, context)
         }
     }
 
@@ -58,7 +58,7 @@ class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.findViewById(R.id.inviterAvatarImageView)
     private val inviterNameTextView: TextView = itemView.findViewById(R.id.inviterNameTextView)
 
-    fun configure(model: HeaderViewItem, context: Context) {
+    fun configure(model: HeaderItemView, context: Context) {
         partyNameTextView.text = model.partyName
         inviterNameTextView.text = model.inviterName
         Glide.with(context)
@@ -77,7 +77,7 @@ class GuestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val guestNameTextView: TextView = itemView.findViewById(R.id.guestNameTextView)
     private val guestAvatarImageView: ImageView = itemView.findViewById(R.id.guestAvatarImageView)
 
-    fun configure(model: GuestViewItem, context: Context) {
+    fun configure(model: GuestItemView, context: Context) {
         guestNameTextView.text = model.name
         Glide.with(context).load(model.avatar).placeholder(R.drawable.ic_placeholder).circleCrop()
             .into(guestAvatarImageView)
