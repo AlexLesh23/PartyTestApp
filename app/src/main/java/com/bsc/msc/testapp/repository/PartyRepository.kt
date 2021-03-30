@@ -1,30 +1,23 @@
 package com.bsc.msc.testapp.repository
 
 import android.content.Context
-import com.bsc.msc.testapp.model.ApiResponse
-import com.google.gson.Gson
+import com.bsc.msc.testapp.network.model.response.ApiResponse
+import com.bsc.msc.testapp.network.APIService
 import io.reactivex.rxjava3.core.Single
+import org.koin.core.context.GlobalContext.get
 import java.io.IOException
 import java.io.InputStream
 
-class PartyRepository (private val context: Context) {
+class PartyRepository(private val context: Context) {
+    private val apiService = get().koin.get<APIService>()
 
-    fun getPartyInfo(): Single<ApiResponse> {
-        return Single.create {
-            try {
-                val gson = Gson()
-                val apiResponse = gson.fromJson(getDataFromAssets(), ApiResponse::class.java)
-                it.onSuccess(apiResponse)
-            } catch (ex: Exception) {
-                it.onError(ex)
-            }
-        }
-    }
+    fun getPartyInfo(): Single<ApiResponse> = apiService.getParty()
+
 
     private fun getDataFromAssets(): String? {
         var json: String? = null
         try {
-            val inputStream: InputStream =context.assets.open("data.json")
+            val inputStream: InputStream = context.assets.open("data.json")
             val size: Int = inputStream.available()
             val buffer = ByteArray(size)
             inputStream.read(buffer)
