@@ -1,32 +1,27 @@
 package com.bsc.msc.testapp.viewmodel
 
-import android.content.Context
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import com.bsc.msc.testapp.R
-import com.bsc.msc.testapp.model.GuestViewHolderModel
-import com.bsc.msc.testapp.model.HeaderViewHolderModel
-import com.bsc.msc.testapp.model.ViewHolderModel
+import com.bsc.msc.testapp.model.GuestViewItem
+import com.bsc.msc.testapp.model.HeaderViewItem
+import com.bsc.msc.testapp.model.ViewItem
 import com.bsc.msc.testapp.repository.PartyRepository
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Single
 
-class PartyViewModel @ViewModelInject constructor(
-    private val partyRepository: PartyRepository,
-    @ApplicationContext private val context: Context
+class PartyViewModel (
+    private val partyRepository: PartyRepository
 ) :
     ViewModel() {
 
-    fun getPartyInfo(): Single<MutableList<ViewHolderModel>> = partyRepository.getPartyInfo().map {
-        val models = mutableListOf<ViewHolderModel>()
+    fun getPartyInfo(): Single<MutableList<ViewItem>> = partyRepository.getPartyInfo().map {
+        val models = mutableListOf<ViewItem>()
         models.add(
-            HeaderViewHolderModel(
+            HeaderViewItem(
                 it.party,
-                context.getString(R.string.inviterLabel)
+                "Пригласил(а): "
             )
         )
         it.party.guests.forEach { guest ->
-            models.add(GuestViewHolderModel(guest))
+            models.add(GuestViewItem(guest))
         }
         models
     }

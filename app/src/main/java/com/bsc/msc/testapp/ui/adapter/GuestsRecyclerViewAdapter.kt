@@ -10,10 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bsc.msc.testapp.R
 import com.bsc.msc.testapp.model.*
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 
 class GuestsRecyclerViewAdapter(
-    var models: List<ViewHolderModel>,
+    var models: List<ViewItem>,
     private val context: Context
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -39,9 +38,9 @@ class GuestsRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is GuestViewHolder) {
-            holder.configure(models[position] as GuestViewHolderModel, context)
+            holder.configure(models[position] as GuestViewItem, context)
         } else if (holder is HeaderViewHolder) {
-            holder.configure(models[position] as HeaderViewHolderModel, context)
+            holder.configure(models[position] as HeaderViewItem, context)
         }
     }
 
@@ -59,7 +58,7 @@ class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         itemView.findViewById(R.id.inviterAvatarImageView)
     private val inviterNameTextView: TextView = itemView.findViewById(R.id.inviterNameTextView)
 
-    fun configure(model: HeaderViewHolderModel, context: Context) {
+    fun configure(model: HeaderViewItem, context: Context) {
         partyNameTextView.text = model.partyName
         inviterNameTextView.text = model.inviterName
         Glide.with(context)
@@ -78,7 +77,7 @@ class GuestViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val guestNameTextView: TextView = itemView.findViewById(R.id.guestNameTextView)
     private val guestAvatarImageView: ImageView = itemView.findViewById(R.id.guestAvatarImageView)
 
-    fun configure(model: GuestViewHolderModel, context: Context) {
+    fun configure(model: GuestViewItem, context: Context) {
         guestNameTextView.text = model.name
         Glide.with(context).load(model.avatar).placeholder(R.drawable.ic_placeholder).circleCrop()
             .into(guestAvatarImageView)

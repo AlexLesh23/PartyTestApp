@@ -8,18 +8,17 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bsc.msc.testapp.R
-import com.bsc.msc.testapp.addToCompositeDisposable
 import com.bsc.msc.testapp.ui.adapter.GuestsRecyclerViewAdapter
 import com.bsc.msc.testapp.viewmodel.PartyViewModel
-import dagger.hilt.android.AndroidEntryPoint
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-@AndroidEntryPoint
-class PartyActivity : AppCompatActivity() {
-    private val partyViewModel: PartyViewModel by viewModels()
+import org.koin.android.viewmodel.ext.android.viewModel
 
+class PartyActivity : AppCompatActivity() {
+    private val partyViewModel: PartyViewModel by viewModel()
     private val disposeBag = CompositeDisposable()
     private var guestsAdapter: GuestsRecyclerViewAdapter? = null
 
@@ -30,6 +29,16 @@ class PartyActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         loadData()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    override fun onDestroy() {
+        disposeBag.clear()
+        super.onDestroy()
     }
 
     private fun loadData() {
@@ -46,17 +55,7 @@ class PartyActivity : AppCompatActivity() {
                 }
             }, {
                 Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
-            }).addToCompositeDisposable(disposeBag)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        onBackPressed()
-        return true
-    }
-
-    override fun onDestroy() {
-        disposeBag.clear()
-        super.onDestroy()
+            }).addTo(disposeBag)
     }
 }
 

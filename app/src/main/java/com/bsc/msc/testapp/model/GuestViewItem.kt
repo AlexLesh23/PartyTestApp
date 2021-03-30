@@ -1,6 +1,6 @@
 package com.bsc.msc.testapp.model
 
-class GuestViewHolderModel(guest: Guest) : ViewHolderModel {
+class GuestViewItem(guest: Guest) : ViewItem {
     val name = guest.name
     val avatar = guest.avatar
 }

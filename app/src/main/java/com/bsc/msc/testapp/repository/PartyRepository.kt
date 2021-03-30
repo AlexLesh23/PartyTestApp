@@ -3,15 +3,11 @@ package com.bsc.msc.testapp.repository
 import android.content.Context
 import com.bsc.msc.testapp.model.ApiResponse
 import com.google.gson.Gson
-import dagger.hilt.android.qualifiers.ApplicationContext
 import io.reactivex.rxjava3.core.Single
 import java.io.IOException
 import java.io.InputStream
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class PartyRepository @Inject constructor(@ApplicationContext private val context: Context) {
+class PartyRepository (private val context: Context) {
 
     fun getPartyInfo(): Single<ApiResponse> {
         return Single.create {
